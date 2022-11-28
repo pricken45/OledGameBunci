@@ -1,7 +1,13 @@
-/*********
-  Rui Santos
-  Complete project details at https://randomnerdtutorials.com
-*********/
+/**
+ * @file main.cpp
+ * @author Ruben Stenlund (rubo@rubo.se)
+ * @brief
+ * @version 1.0
+ * @date 2022-11-28
+ *
+ * @copyright Copyright (c) 2022
+ *
+ */
 
 #include <Enemy.h>
 
