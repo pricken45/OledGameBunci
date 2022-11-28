@@ -76,6 +76,7 @@ void resetPosition()
 
 void drawCentreString(const char *buf, int x, int y)
 {
+  // function for drawing a string at the center
   int16_t x1, y1;
   uint16_t w, h;
   display.getTextBounds(buf, x, y, &x1, &y1, &w, &h); // calc width of new string
@@ -84,6 +85,8 @@ void drawCentreString(const char *buf, int x, int y)
 }
 void death()
 {
+  // play death sound effect
+
   startGame = false;
   tone(A2, 2000, 500);
   delay(500);
@@ -92,6 +95,8 @@ void death()
 
 void startMenu()
 {
+  // shows the start menu and waits for player input to start the game
+
   display.setTextColor(WHITE);
   display.setTextSize(1);
   display.clearDisplay();
@@ -140,6 +145,8 @@ void startMenu()
     }
   }
 
+  // rendering the game start count down
+
   display.clearDisplay();
 
   display.setCursor(64, 25);
@@ -168,6 +175,8 @@ void startMenu()
 
 void collisionDetection()
 {
+  // function for detecting player collision with walls
+
   if (y >= SCREEN_HEIGHT || y <= -2 || x <= 0 || x >= SCREEN_WIDTH)
   {
     resetPosition();
@@ -178,12 +187,16 @@ void collisionDetection()
 
 void clickLeft()
 {
+  // click handler for left button
+
   yVelocity = -jumpForce;
   xVelocity = -2;
   tone(A2, 2000, 70);
 }
 void clickRight()
 {
+  // click handler for right button
+
   yVelocity = -jumpForce;
   xVelocity = 2;
   tone(A2, 2000, 70);
@@ -191,6 +204,8 @@ void clickRight()
 
 void setup()
 {
+  // setup function, runs once
+
   pinMode(2, INPUT);
   pinMode(3, INPUT);
 
@@ -220,18 +235,26 @@ void setup()
 
 void loop()
 {
+  // loop function. runs over and over. all logic happens here or get called here
+
   if (menu)
   {
     return;
   }
+
+  // "physics" simulation
+
   yVelocity += gravity;
   xVelocity *= drag;
 
   y += yVelocity;
   x += xVelocity;
+
+  // handling the score adder
+
   scoreAdder++;
 
-  if (scoreAdder > 45)
+  if (scoreAdder > 40)
   {
     scoreAdder = 0;
     score++;
@@ -240,6 +263,8 @@ void loop()
   // Serial.println(enemy.x);
 
   collisionDetection();
+
+  // jumping click registrations
 
   if ((!digitalRead(2)) == LOW && button_debounce == false)
   {
@@ -265,7 +290,7 @@ void loop()
     button_debounceR = false;
   }
 
-  // Rendering
+  // Rendering all nessecary items for playing the game.
   display.clearDisplay();
   e1.update();
   e2.update();
