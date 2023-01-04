@@ -10,11 +10,15 @@ public:
     float x;
     int y;
     float direction;
-    byte speed;
+    float speed;
     bool alive;
+    float addition;
     Adafruit_SSD1306 *disp;
     void newPos()
     {
+        this->addition += 0.05;
+        this->speed = 1 + random(-1, 1) + 0.5 + this->addition;
+
         if (random(0.0f, 3.0f) > 1.5f)
         {
             this->direction = 1;
@@ -28,10 +32,11 @@ public:
 
         this->y = random(64);
     }
-    Enemy(Adafruit_SSD1306 *display, int spd, bool alv)
+    Enemy(Adafruit_SSD1306 *display, float spd, bool alv)
     {
+        this->addition = 0;
         this->disp = display;
-        this->speed = spd;
+        this->speed = spd + random(-1, 1) + 0.5;
 
         this->alive = alv;
         x = 0;

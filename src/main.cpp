@@ -50,11 +50,14 @@ int highScore = 0;
 Enemy e1 = Enemy(&display, 1, true);
 Enemy e2 = Enemy(&display, 1, true);
 Enemy e3 = Enemy(&display, 1, true);
+Enemy e4 = Enemy(&display, 1, false);
+Enemy e5 = Enemy(&display, 1, false);
 
 void clearEEPROM()
 {
+
   // to clear eeprom, and clear the highscore
-  for (int i = 0; i < EEPROM.length(); i++)
+  for (unsigned i = 0; i < EEPROM.length(); i++)
   {
     EEPROM.write(i, 0);
   }
@@ -78,6 +81,17 @@ void resetPosition()
   e1.newPos();
   e2.newPos();
   e3.newPos();
+  e4.newPos();
+  e5.newPos();
+
+  e1.addition = 0;
+  e2.addition = 0;
+  e3.addition = 0;
+  e4.addition = 0;
+  e5.addition = 0;
+
+  e4.alive = false;
+  e5.alive = false;
 }
 
 void drawCentreString(const char *buf, int x, int y)
@@ -214,6 +228,7 @@ void setup()
 
   pinMode(2, INPUT);
   pinMode(3, INPUT);
+  pinMode(4, INPUT);
 
   int recv;
   EEPROM.get(0, recv);
@@ -266,6 +281,12 @@ void loop()
     score++;
   }
 
+  if (score >= 10)
+  {
+    e4.alive = true;
+    e5.alive = true;
+  }
+
   // Serial.println(enemy.x);
 
   collisionDetection();
@@ -301,9 +322,15 @@ void loop()
   e1.update();
   e2.update();
   e3.update();
+  e4.update();
+  e5.update();
+
   e1.render();
   e2.render();
   e3.render();
+  e4.render();
+  e5.render();
+
   if (e1.colliding(x, y, lastX, lastY))
   {
     resetPosition();
@@ -317,6 +344,18 @@ void loop()
     startMenu();
   }
   if (e3.colliding(x, y, lastX, lastY))
+  {
+    resetPosition();
+    death();
+    startMenu();
+  }
+  if (e5.colliding(x, y, lastX, lastY))
+  {
+    resetPosition();
+    death();
+    startMenu();
+  }
+  if (e5.colliding(x, y, lastX, lastY))
   {
     resetPosition();
     death();
