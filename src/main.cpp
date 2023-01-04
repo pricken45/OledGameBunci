@@ -281,7 +281,7 @@ void loop()
     score++;
   }
 
-  if (score >= 10)
+  if (score >= 20)
   {
     e4.alive = true;
     e5.alive = true;
