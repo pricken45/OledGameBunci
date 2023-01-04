@@ -275,7 +275,7 @@ void loop()
 
   scoreAdder++;
 
-  if (scoreAdder > 40)
+  if (scoreAdder > 30)
   {
     scoreAdder = 0;
     score++;
@@ -284,6 +284,9 @@ void loop()
   if (score >= 20)
   {
     e4.alive = true;
+  }
+  if (score >= 30)
+  {
     e5.alive = true;
   }
 
