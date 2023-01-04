@@ -16,7 +16,7 @@ public:
     Adafruit_SSD1306 *disp;
     void newPos()
     {
-        this->addition += 0.05;
+        this->addition += 0.008;
         this->speed = 1 + random(-1, 1) + 0.5 + this->addition;
 
         if (random(0.0f, 3.0f) > 1.5f)
